@@ -1,4 +1,4 @@
-import { authError, isAdminRequest } from '../lib/admin-auth'
+import { authError, isAdminRequest } from '../lib/admin-auth.js'
 
 export async function POST(request: Request) {
   if (!isAdminRequest(request)) return authError()
