@@ -3,24 +3,15 @@ import { defineConfigWithTheme } from 'vitepress'
 import mdItCustomAttrs from 'markdown-it-custom-attrs'
 
 export interface ThemeConfig {
-  // navBar
   menuList: { name: string; url: string }[]
-
-  // banner
   videoBanner: boolean
   name: string
   welcomeText: string
   motto: string[]
   social: { icon: string; url: string }[]
-
-  // spine
   spineVoiceLang: 'zh' | 'jp'
-
-  // footer
   footerName: string
   poweredList: { name: string; url: string }[]
-
-  // gitalk
   clientID: string
   clientSecret: string
   repo: string
@@ -34,10 +25,8 @@ export default defineConfigWithTheme<ThemeConfig>({
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
     ['meta', { name: 'theme-color', content: '#8cc8ff' }],
     ['meta', { name: 'author', content: 'sn231' }],
-    // gitalk（仅在配置 clientID 后启用）
-    ['link', { rel: 'stylesheet', href: 'https://unpkg.com/gitalk/dist/gitalk.css' }],
-    ['script', { src: 'https://unpkg.com/gitalk/dist/gitalk.min.js' }],
-    // bluearchive font
+    ['meta', { property: 'og:site_name', content: 'Snow Love' }],
+    ['meta', { property: 'og:type', content: 'website' }],
     [
       'link',
       {
@@ -52,7 +41,6 @@ export default defineConfigWithTheme<ThemeConfig>({
         href: '/font/Blueaka_Bold/Blueaka_Bold.css',
       },
     ],
-    // 图片灯箱
     [
       'link',
       {
@@ -72,7 +60,7 @@ export default defineConfigWithTheme<ThemeConfig>({
     hostname: 'https://snowlove.is-a.dev',
   },
   title: 'Snow Love',
-  description: 'Snow Love 的个人博客，记录阅读、技术、游戏与日常。',
+  description: 'Snow Love 的个人博客：阅读、技术、游戏与日常记录。',
   themeConfig: {
     menuList: [
       { name: '首页', url: '' },
@@ -89,16 +77,18 @@ export default defineConfigWithTheme<ThemeConfig>({
     ],
     social: [{ icon: 'github', url: 'https://github.com/sn231' }],
 
+    // 保留主题配置字段以兼容上游，但角色播放器已从 Snow Love 布局移除。
     spineVoiceLang: 'jp',
 
     footerName: 'Snow Love',
     poweredList: [
       { name: 'VitePress', url: 'https://github.com/vuejs/vitepress' },
       { name: 'BlueArchive Theme', url: 'https://github.com/Alittfre/vitepress-theme-bluearchive' },
+      { name: 'Vercel', url: 'https://vercel.com' },
       { name: 'GitHub', url: 'https://github.com/sn231/blog' },
     ],
 
-    // 暂不启用评论。原模板包含示例 OAuth 配置，不应继续用于公开站点。
+    // 评论暂不启用；不在前端保存 OAuth secret。
     clientID: '',
     clientSecret: '',
     repo: 'blog',
