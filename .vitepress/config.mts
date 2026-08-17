@@ -1,25 +1,26 @@
 import { defineConfigWithTheme } from 'vitepress'
 // @ts-ignore
 import mdItCustomAttrs from 'markdown-it-custom-attrs'
+
 export interface ThemeConfig {
-  //navBar
+  // navBar
   menuList: { name: string; url: string }[]
 
-  //banner
+  // banner
   videoBanner: boolean
   name: string
   welcomeText: string
   motto: string[]
   social: { icon: string; url: string }[]
 
-  //spine
+  // spine
   spineVoiceLang: 'zh' | 'jp'
 
-  //footer
+  // footer
   footerName: string
   poweredList: { name: string; url: string }[]
 
-  //gitalk
+  // gitalk
   clientID: string
   clientSecret: string
   repo: string
@@ -31,7 +32,9 @@ export default defineConfigWithTheme<ThemeConfig>({
   lang: 'zh-CN',
   head: [
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
-    // gitalk
+    ['meta', { name: 'theme-color', content: '#8cc8ff' }],
+    ['meta', { name: 'author', content: 'sn231' }],
+    // gitalk（仅在配置 clientID 后启用）
     ['link', { rel: 'stylesheet', href: 'https://unpkg.com/gitalk/dist/gitalk.css' }],
     ['script', { src: 'https://unpkg.com/gitalk/dist/gitalk.min.js' }],
     // bluearchive font
@@ -65,54 +68,48 @@ export default defineConfigWithTheme<ThemeConfig>({
     ],
   ],
   ignoreDeadLinks: true,
-  // 生成站点地图
-  // sitemap: {
-  //   hostname: 'https://vitepress-theme-bluearchive.vercel.app',
-  // },
-  title: "Sensei's 部落格",
-  description: "Sensei's 部落格",
+  sitemap: {
+    hostname: 'https://snowlove.is-a.dev',
+  },
+  title: 'Snow Love',
+  description: 'Snow Love 的个人博客，记录阅读、技术、游戏与日常。',
   themeConfig: {
-    // navBar
     menuList: [
       { name: '首页', url: '' },
       { name: '标签', url: 'tags/' },
     ],
 
-    //banner区配置
     videoBanner: false,
-    name: "Sensei's 部落格",
-    welcomeText: 'Hello, VitePress',
-    motto: ['和你的日常，就是奇迹', '何気ない日常で、ほんの少しの奇跡を見つける物語。'],
-    social: [
-      { icon: 'github', url: 'https://github.com/' },
-      { icon: 'bilibili', url: 'https://www.bilibili.com/' },
-      { icon: 'qq', url: 'https://im.qq.com/index/' },
-      { icon: 'wechat', url: 'https://weixin.qq.com/' },
+    name: 'Snow Love',
+    welcomeText: 'Snow Love',
+    motto: [
+      '把喜欢的故事、折腾过的东西和偶尔闪过的想法，都留在这里。',
+      '愿每一次记录，都像雪落一样安静，却留下痕迹。',
+      '读书、游戏、技术与日常，慢慢写，长期更新。',
     ],
+    social: [{ icon: 'github', url: 'https://github.com/sn231' }],
 
-    //spine语音配置，可选zh/jp
     spineVoiceLang: 'jp',
 
-    //footer配置
-    footerName: 'Sensei',
+    footerName: 'Snow Love',
     poweredList: [
       { name: 'VitePress', url: 'https://github.com/vuejs/vitepress' },
-      { name: 'GitHub Pages', url: 'https://docs.github.com/zh/pages' },
+      { name: 'BlueArchive Theme', url: 'https://github.com/Alittfre/vitepress-theme-bluearchive' },
+      { name: 'GitHub', url: 'https://github.com/sn231/blog' },
     ],
 
-    //gitalk配置
-    clientID: 'Ov23lia9U9wFN3WMyoKK',
-    clientSecret: 'b2418ab598c188c43a247c99e728dd2735d58c3b',
-    repo: 'vitepress-theme-bluearchive',
-    owner: 'Alittfre',
-    admin: ['Alittfre'],
+    // 暂不启用评论。原模板包含示例 OAuth 配置，不应继续用于公开站点。
+    clientID: '',
+    clientSecret: '',
+    repo: 'blog',
+    owner: 'sn231',
+    admin: ['sn231'],
   },
   markdown: {
     theme: 'solarized-dark',
     lineNumbers: true,
     math: true,
     config: (md) => {
-      // use more markdown-it plugins!
       md.use(mdItCustomAttrs, 'image', {
         'data-fancybox': 'gallery',
       })
