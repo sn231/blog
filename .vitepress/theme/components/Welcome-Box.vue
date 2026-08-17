@@ -14,7 +14,12 @@
           background: `linear-gradient(${angle}deg, var(--infobox-background-initial), var(--infobox-background-final))`,
         }"
       >
-        <img @dragstart.prevent src="../assets/banner/avatar.webp" alt="" class="avatar" />
+        <img
+          @dragstart.prevent
+          src="https://avatars.githubusercontent.com/u/196439959?v=4"
+          alt="sn231"
+          class="avatar"
+        />
         <span class="name">{{ name }}</span>
         <span class="motto">
           {{ mottoText }}
@@ -49,31 +54,28 @@ const calcX = ref(0)
 const angle = ref(0)
 
 const parallax = (e: MouseEvent) => {
-  if (welcomeBoxRef.value) {
-    window.requestAnimationFrame(() => {
-      const box = welcomeBoxRef.value!.getBoundingClientRect()
-      calcY.value = (e.clientX - box.x - box.width / 2) / multiple
-      calcX.value = -(e.clientY - box.y - box.height / 2) / multiple
-      angle.value = Math.floor(
-        getMouseAngle(e.clientY - box.y - box.height / 2, e.clientX - box.x - box.width / 2),
-      )
-    })
-  }
+  if (!welcomeBoxRef.value) return
+  window.requestAnimationFrame(() => {
+    const box = welcomeBoxRef.value!.getBoundingClientRect()
+    calcY.value = (e.clientX - box.x - box.width / 2) / multiple
+    calcX.value = -(e.clientY - box.y - box.height / 2) / multiple
+    angle.value = Math.floor(
+      getMouseAngle(e.clientY - box.y - box.height / 2, e.clientX - box.x - box.width / 2),
+    )
+  })
 }
 
 const getMouseAngle = (x: number, y: number) => {
   const radians = Math.atan2(y, x)
-  let angle = radians * (180 / Math.PI)
-
-  if (angle < 0) {
-    angle += 360
-  }
-
-  return angle
+  let result = radians * (180 / Math.PI)
+  if (result < 0) result += 360
+  return result
 }
 
 const reset = () => {
-  calcX.value = calcY.value = angle.value = 0
+  calcX.value = 0
+  calcY.value = 0
+  angle.value = 0
 }
 
 let index = 0
@@ -81,16 +83,13 @@ const mottoText = ref('')
 const randomMotto = motto[Math.floor(Math.random() * motto.length)]
 
 const addNextCharacter = () => {
-  if (index < randomMotto.length) {
-    mottoText.value += randomMotto[index]
-    index++
-    setTimeout(addNextCharacter, Math.random() * 150 + 50)
-  }
+  if (index >= randomMotto.length) return
+  mottoText.value += randomMotto[index]
+  index++
+  setTimeout(addNextCharacter, Math.random() * 120 + 45)
 }
 
-onMounted(() => {
-  addNextCharacter()
-})
+onMounted(addNextCharacter)
 </script>
 
 <style scoped lang="less">
@@ -132,6 +131,7 @@ onMounted(() => {
     transform: translate(-50%, -50%);
     width: 7.5vw;
     height: 7.5vw;
+    object-fit: cover;
     border-radius: 50%;
     border: solid 3px var(--infobox-border-color);
     transition: transform 0.6s ease, box-shadow 0.4s ease, filter 0.5s;
@@ -150,41 +150,30 @@ onMounted(() => {
     font-size: 1.5vw;
     margin-top: 3vh;
   }
+
   .motto {
     font-size: 1vw;
     font-weight: bold;
-    animation: color-change 0.8s linear infinite;
     margin-top: 3vh;
     text-align: center;
+
     .pointer {
       display: inline-block;
       margin: -0.5vh 0 0;
-      padding: 0;
       vertical-align: middle;
       width: 2px;
       height: 1vw;
-      animation: color-change 0.8s linear infinite;
-      background-color: var(--pointerColor);
-    }
-    @keyframes color-change {
-      0%,
-      40% {
-        --pointerColor: var(--font-color-grey);
-      }
-
-      60%,
-      100% {
-        --pointerColor: transparent;
-      }
+      animation: blink 0.8s linear infinite;
+      background-color: var(--font-color-grey);
     }
   }
 
   ul {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 22px;
     margin-top: 3.5vh;
-    width: 12vw;
     padding: 0;
 
     .social {
@@ -198,6 +187,11 @@ onMounted(() => {
       }
     }
   }
+}
+
+@keyframes blink {
+  0%, 40% { opacity: 1; }
+  60%, 100% { opacity: 0; }
 }
 
 @media (max-width: 768px) {
@@ -220,21 +214,18 @@ onMounted(() => {
       font-size: 2.5vh;
       margin-top: 1.8vh;
     }
+
     .motto {
       font-size: 1.5vh;
       margin-top: 1.5vh;
+
       .pointer {
         height: 1.5vh;
       }
     }
 
-    ul {
-      margin-top: 1.8vh;
-      width: 32vw;
-
-      .social {
-        font-size: 2vh;
-      }
+    ul .social {
+      font-size: 2vh;
     }
   }
 }
