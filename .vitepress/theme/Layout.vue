@@ -1,27 +1,32 @@
 <template>
-  <Splash></Splash>
-  <template v-if="!page.isNotFound">
-    <main style="min-height: 100vh">
-      <Navbar></Navbar>
-      <Banner>
-        <transition name="fade" mode="out-in">
-          <WelcomeBox v-if="!state.splashLoading && page.filePath === 'index.md'"></WelcomeBox>
-          <Tags v-else-if="page.filePath === 'tags/index.md'"></Tags>
-          <PostInnerBanner v-else></PostInnerBanner>
-        </transition>
-      </Banner>
-      <transition name="fade" mode="out-in">
-        <PostsList
-          v-if="page.filePath === 'index.md' || page.filePath === 'tags/index.md'"
-        ></PostsList>
-        <PostViewer v-else></PostViewer>
-      </transition>
-    </main>
-    <Footer></Footer>
-    <Fireworks v-if="state.fireworksEnabled"></Fireworks>
-    <ToTop></ToTop>
+  <template v-if="page.filePath === 'admin.md'">
+    <AdminPage></AdminPage>
   </template>
-  <NotFound v-else></NotFound>
+  <template v-else>
+    <Splash></Splash>
+    <template v-if="!page.isNotFound">
+      <main style="min-height: 100vh">
+        <Navbar></Navbar>
+        <Banner>
+          <transition name="fade" mode="out-in">
+            <WelcomeBox v-if="!state.splashLoading && page.filePath === 'index.md'"></WelcomeBox>
+            <Tags v-else-if="page.filePath === 'tags/index.md'"></Tags>
+            <PostInnerBanner v-else></PostInnerBanner>
+          </transition>
+        </Banner>
+        <transition name="fade" mode="out-in">
+          <PostsList
+            v-if="page.filePath === 'index.md' || page.filePath === 'tags/index.md'"
+          ></PostsList>
+          <PostViewer v-else></PostViewer>
+        </transition>
+      </main>
+      <Footer></Footer>
+      <Fireworks v-if="state.fireworksEnabled"></Fireworks>
+      <ToTop></ToTop>
+    </template>
+    <NotFound v-else></NotFound>
+  </template>
 </template>
 
 <script setup lang="ts">
@@ -37,6 +42,7 @@ import NotFound from './components/NotFound.vue'
 import ToTop from './components/ToTop.vue'
 import Fireworks from './components/Fireworks.vue'
 import Footer from './components/Footer.vue'
+import AdminPage from './components/AdminPage.vue'
 import { useData } from 'vitepress'
 import { useStore } from './store'
 
