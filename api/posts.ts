@@ -1,5 +1,5 @@
-import { authError, isAdminRequest } from '../lib/admin-auth'
-import { decodeBase64, githubBranch, githubRequest } from '../lib/github-content'
+import { authError, isAdminRequest } from '../lib/admin-auth.js'
+import { decodeBase64, githubBranch, githubRequest } from '../lib/github-content.js'
 
 function safePostPath(path: string) {
   return path.startsWith('posts/') && path.endsWith('.md') && !path.includes('..')
