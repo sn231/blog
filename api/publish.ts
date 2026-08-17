@@ -1,5 +1,5 @@
-import { authError, isAdminRequest } from '../lib/admin-auth'
-import { decodeBase64, encodeBase64, githubBranch, githubRequest } from '../lib/github-content'
+import { authError, isAdminRequest } from '../lib/admin-auth.js'
+import { decodeBase64, encodeBase64, githubBranch, githubRequest } from '../lib/github-content.js'
 
 type PublishBody = {
   title?: string
