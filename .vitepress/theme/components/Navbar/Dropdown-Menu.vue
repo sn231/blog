@@ -2,7 +2,7 @@
   <div class="dropdown-menu" ref="dropdownMenu">
     <div class="menu-content">
       <div class="first-row">
-        <MusicControl></MusicControl>
+        <span class="menu-title">浏览与显示</span>
         <SearchButton></SearchButton>
       </div>
       <ToggleSwitch></ToggleSwitch>
@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import MusicControl from './Music-Control.vue'
 import SearchButton from './Search-Button.vue'
 import ToggleSwitch from './ToggleSwitch.vue'
 import { useStore } from '../../store'
@@ -24,23 +23,15 @@ const handleClickOutside = (event: MouseEvent) => {
   const target = event.target as HTMLElement
   const hamburgerEl = document.querySelector('.hamburger')
 
-  // 避免与展开按钮冲突
-  if (hamburgerEl && hamburgerEl.contains(target)) {
-    return
-  }
+  if (hamburgerEl && hamburgerEl.contains(target)) return
 
   if (dropdownMenu.value && !dropdownMenu.value.contains(target) && state.showDropdownMenu) {
     state.showDropdownMenu = false
   }
 }
 
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside)
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside)
-})
+onMounted(() => document.addEventListener('click', handleClickOutside))
+onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 </script>
 
 <style scoped lang="less">
@@ -55,24 +46,30 @@ onUnmounted(() => {
 
   .menu-content {
     position: relative;
+    min-width: 220px;
     background-color: var(--foreground-color);
-    border-radius: 2vw;
-    padding: 1.2vw;
-    gap: 0.8vw;
+    border-radius: 24px;
+    padding: 18px;
+    gap: 12px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
 
   .first-row {
     display: flex;
-    gap: 0.4vw;
-    padding: 0.3vw;
-    padding-bottom: 1vh;
+    gap: 12px;
+    padding: 4px 4px 12px;
     width: 100%;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px dashed var(--font-color-grey);
+  }
+
+  .menu-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--font-color-grey);
   }
 }
 
@@ -80,7 +77,7 @@ onUnmounted(() => {
   opacity: 1;
   transform: translateY(15px);
   .menu-content {
-    box-shadow: 0px 0px 8px rgb(var(--blue-shadow-color), 0.8);
+    box-shadow: 0 0 8px rgb(var(--blue-shadow-color), 0.8);
     transition: box-shadow 0.3s;
   }
   transition: opacity 0.1s ease-in-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -98,18 +95,9 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
-  .dropdown-menu {
-    .menu-content {
-      border-radius: 3vh;
-      padding: 2vh;
-      gap: 1vh;
-    }
-
-    .first-row {
-      gap: 0.5vh;
-      padding: 0.3vh;
-      padding-bottom: 1vh;
-    }
+  .dropdown-menu .menu-content {
+    border-radius: 24px;
+    padding: 16px;
   }
 }
 </style>

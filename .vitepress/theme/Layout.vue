@@ -19,18 +19,12 @@
     </main>
     <Footer></Footer>
     <Fireworks v-if="state.fireworksEnabled"></Fireworks>
-    <ClientOnly><SpinePlayer></SpinePlayer></ClientOnly>
     <ToTop></ToTop>
-    <!-- 背景音乐元素 -->
-    <audio id="background-music" loop>
-      <source src="./assets/banner/bgm.mp3" type="audio/mpeg" />
-    </audio>
   </template>
   <NotFound v-else></NotFound>
 </template>
 
 <script setup lang="ts">
-// 组件导入
 import Splash from './components/Splash.vue'
 import Navbar from './components/Navbar/index.vue'
 import Banner from './components/Banner.vue'
@@ -43,13 +37,10 @@ import NotFound from './components/NotFound.vue'
 import ToTop from './components/ToTop.vue'
 import Fireworks from './components/Fireworks.vue'
 import Footer from './components/Footer.vue'
-// @ts-ignore
-import SpinePlayer from './components/Spine-Player/index.vue'
-// 路径切换
 import { useData } from 'vitepress'
-const { page } = useData()
-
 import { useStore } from './store'
+
+const { page } = useData()
 const { state } = useStore()
 </script>
 
