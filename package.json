@@ -1,10 +1,10 @@
 {
-  "name": "vitepress-theme-bluearchive",
-  "version": "0.0.1",
-  "description": "vitepress-theme-bluearchive",
+  "name": "snowlove-blog",
+  "version": "1.0.0",
+  "description": "Snow Love personal blog powered by VitePress and the BlueArchive theme",
   "type": "module",
   "main": ".vitepress/theme/Layout.vue",
-  "author": "Alittfre",
+  "author": "sn231",
   "license": "ISC",
   "devDependencies": {
     "@types/animejs": "^3.1.12",
